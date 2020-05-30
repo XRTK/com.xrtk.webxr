@@ -1,0 +1,26 @@
+{
+  "name": "com.xrtk.platformname",
+  "displayName": "XRTK.PlatformName",
+  "description": "The PlatformName components for the Mixed Reality Toolkit.",
+  "keywords": [
+    "xrtk",
+    "vr",
+    "ar",
+    "xr",
+    "mixed",
+    "reality"
+  ],
+  "version": "0.2.0",
+  "unity": "2019.1",
+  "license": "MIT",
+  "author": "XRTK Team (https://github.com/XRTK)",
+  "dependencies": {
+    "com.xrtk.core": "0.2.0-preview.34"
+  },
+  "profiles": [
+    {
+      "displayName": "Default Profiles",
+      "path": "Profiles~/"
+    }
+  ]
+}
