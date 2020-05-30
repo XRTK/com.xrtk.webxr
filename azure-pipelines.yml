@@ -1,7 +1,7 @@
 variables:
-  project.name: 'XRTK.PlatformName'
+  project.name: 'XRTK.WebXR'
   project.upmSha: ''
-  package.name: 'com.xrtk.platformname'
+  package.name: 'com.xrtk.webxr'
   package.version: ''
   EditorPath: ''
   LogDirectory: ''
@@ -25,12 +25,12 @@ pr:
     include:
     - azure-pipelines.yml
     - azure_pipelines/*
-    - XRTK.PlatformName/*
+    - XRTK.WebXR/*
     exclude:
       - '*'
-      - XRTK.PlatformName/Packages/com.xrtk.platformname/README.md
-      - XRTK.PlatformName/Packages/com.xrtk.platformname/LICENSE.md
-      - XRTK.PlatformName/Packages/com.xrtk.platformname/.github/*
+      - XRTK.WebXR/Packages/com.xrtk.webxr/README.md
+      - XRTK.WebXR/Packages/com.xrtk.webxr/LICENSE.md
+      - XRTK.WebXR/Packages/com.xrtk.webxr/.github/*
 
 trigger:
   batch: true
@@ -41,12 +41,12 @@ trigger:
     include:
       - azure-pipelines.yml
       - azure_pipelines/*
-      - XRTK.PlatformName/*
+      - XRTK.WebXR/*
     exclude:
       - '*'
-      - XRTK.PlatformName/Packages/com.xrtk.platformname/README.md
-      - XRTK.PlatformName/Packages/com.xrtk.platformname/LICENSE.md
-      - XRTK.PlatformName/Packages/com.xrtk.platformname/.github/*
+      - XRTK.WebXR/Packages/com.xrtk.webxr/README.md
+      - XRTK.WebXR/Packages/com.xrtk.webxr/LICENSE.md
+      - XRTK.WebXR/Packages/com.xrtk.webxr/.github/*
 
 extends:
   template: azure_pipelines/common.yml
