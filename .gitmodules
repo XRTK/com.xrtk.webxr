@@ -1,0 +1,3 @@
+[submodule "Submodules/Simple-WebXR-Unity"]
+	path = Submodules/Simple-WebXR-Unity
+	url = https://github.com/Rufus31415/Simple-WebXR-Unity.git
