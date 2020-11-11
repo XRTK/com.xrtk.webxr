@@ -19,3 +19,4 @@ namespace XRTK.WebXR.Profiles
         }
     }
 }
+

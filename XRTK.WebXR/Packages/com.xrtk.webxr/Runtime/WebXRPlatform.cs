@@ -1,7 +1,7 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
+using XRTK.Interfaces;
 
 namespace XRTK.Definitions.Platforms
 {
@@ -12,21 +12,21 @@ namespace XRTK.Definitions.Platforms
     public class WebXRPlatform : BasePlatform
     {
         /// <inheritdoc />
-        public override bool IsAvailable
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsAvailable => !UnityEngine.Application.isEditor;
 
         /// <inheritdoc />
         public override bool IsBuildTargetAvailable
         {
             get
             {
+#if UNITY_EDITOR
+                return (UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.WebGL);
+#else
                 return false;
+#endif
             }
         }
+
+        public override IMixedRealityPlatform[] PlatformOverrides { get; } = { new WebGlPlatform() };
     }
 }
