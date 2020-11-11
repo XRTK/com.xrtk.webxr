@@ -66,3 +66,5 @@ ThirdParty.meta
 --Version/
 XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles
 XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles.meta
+XRTK.WebXR/Packages/com.xrtk.webxr/Runtime/Plugins
+XRTK.WebXR/Packages/com.xrtk.webxr/Runtime/Plugins.meta
