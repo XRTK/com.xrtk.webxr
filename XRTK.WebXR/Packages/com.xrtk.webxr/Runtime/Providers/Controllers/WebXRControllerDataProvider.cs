@@ -6,6 +6,8 @@ using XRTK.Definitions.Platforms;
 using XRTK.Interfaces.InputSystem;
 using XRTK.WebXR.Profiles;
 using XRTK.Providers.Controllers;
+using Rufus31415.WebXR;
+using System;
 
 namespace XRTK.WebXR.Providers.Controllers
 {
@@ -17,6 +19,25 @@ namespace XRTK.WebXR.Providers.Controllers
         public WebXRControllerDataProvider(string name, uint priority, WebXRControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
+            SimpleWebXR.SessionStart.AddListener(OnSessionStart);
+            SimpleWebXR.SessionEnd.AddListener(OnSessionEnd);
         }
+
+        private void OnSessionStart()
+        {
+            //RaiseSourceDetected
+        }
+        private void OnSessionEnd()
+        {
+            //RaiseSourceLost
+        }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+
+            // remove handlers
+        }
+
     }
 }

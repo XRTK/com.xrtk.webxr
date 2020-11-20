@@ -1,8 +1,9 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Rufus31415.WebXR;
+using UnityEngine;
 using XRTK.Attributes;
-using XRTK.Definitions.CameraSystem;
 using XRTK.Definitions.Platforms;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Providers.CameraSystem;
@@ -14,9 +15,19 @@ namespace XRTK.WebXR.Providers.CameraSystem
     public class WebXRCameraDataProvider : BaseCameraDataProvider
     {
         /// <inheritdoc />
-        public WebXRCameraDataProvider(string name, uint priority, BaseMixedRealityCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)
+        public WebXRCameraDataProvider(string name, uint priority, WebXRCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)
             : base(name, priority, profile, parentService)
         {
+          var instance =  SimpleWebXR.EnsureInstance();
+
+            instance.HideStartButton = profile.HideStartButton;
+        }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+            var webxr = SimpleWebXR.GetInstance();
+            if (webxr) Object.Destroy(webxr.gameObject);
         }
     }
 }

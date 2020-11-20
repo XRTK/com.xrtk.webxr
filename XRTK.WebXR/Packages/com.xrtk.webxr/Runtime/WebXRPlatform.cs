@@ -26,7 +26,5 @@ namespace XRTK.Definitions.Platforms
 #endif
             }
         }
-
-        public override IMixedRealityPlatform[] PlatformOverrides { get; } = { new WebGlPlatform() };
     }
 }
