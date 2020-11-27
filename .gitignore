@@ -64,5 +64,7 @@ artifacts/
 ThirdParty/
 ThirdParty.meta
 --Version/
+
+XRTK.WebXR/Assets/XRTK.Generated/WebXR.meta
 XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles
 XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles.meta
