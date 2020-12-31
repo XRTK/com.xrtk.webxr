@@ -17,11 +17,22 @@ namespace XRTK.WebXR.Providers.Controllers
     [System.Runtime.InteropServices.Guid("6e771251-8fb3-4742-a279-eebf7a25f6dd")]
     public class WebXRController : BaseController
     {
+
+        public WebXRController() { }
+
+        public WebXRController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+    : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
+        {
+        }
+
+
+
         private MixedRealityPose lastControllerPose = MixedRealityPose.ZeroIdentity;
 
         public override MixedRealityInteractionMapping[] DefaultInteractions => new[]
         {
-            new MixedRealityInteractionMapping("Trigger", AxisType.Digital, "Trigger", DeviceInputType.Select),
+                               new MixedRealityInteractionMapping("Spatial Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
+ new MixedRealityInteractionMapping("Trigger", AxisType.Digital, "Trigger", DeviceInputType.Select),
         };
 
         /// <inheritdoc />
@@ -34,7 +45,7 @@ namespace XRTK.WebXR.Providers.Controllers
         /// <inheritdoc />
         public override void UpdateController()
         {
-            if (!Enabled) return;        
+                if (!Enabled) return;        
 
             base.UpdateController();
 
@@ -44,8 +55,7 @@ namespace XRTK.WebXR.Providers.Controllers
 
             if (Interactions == null)
             {
-                Debug.LogError($"No interaction configuration for Oculus Controller {ControllerHandedness}");
-                Enabled = false;
+               Enabled = false;
             }
 
             var lastState = TrackingState;
@@ -81,6 +91,9 @@ namespace XRTK.WebXR.Providers.Controllers
                 {
                     case DeviceInputType.Select:
                         interactionMapping.BoolData = controller.Selected;
+                        break;
+                    case DeviceInputType.SpatialPointer:
+                        interactionMapping.PoseData = lastControllerPose;
                         break;
                     default:
                         Debug.LogError($"Input [{interactionMapping.InputType}] is not handled for this controller [{GetType().Name}]");

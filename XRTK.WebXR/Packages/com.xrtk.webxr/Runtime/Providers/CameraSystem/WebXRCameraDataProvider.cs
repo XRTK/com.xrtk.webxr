@@ -27,7 +27,7 @@ namespace XRTK.WebXR.Providers.CameraSystem
         {
             base.Destroy();
             var webxr = SimpleWebXR.GetInstance();
-            if (webxr) Object.Destroy(webxr.gameObject);
+            if (webxr) Object.DestroyImmediate(webxr.gameObject);
         }
     }
 }
