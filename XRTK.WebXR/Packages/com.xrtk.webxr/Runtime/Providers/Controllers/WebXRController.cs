@@ -43,15 +43,11 @@ namespace XRTK.WebXR.Providers.Controllers
 
 
         /// <inheritdoc />
-        public override void UpdateController()
+        public void UpdateController(WebXRInputSource controller)
         {
             if (!Enabled) return;
 
             base.UpdateController();
-
-
-
-            var controller = this.ControllerHandedness == Handedness.Left ? SimpleWebXR.LeftInput : SimpleWebXR.RightInput;
 
             if (Interactions == null)
             {
