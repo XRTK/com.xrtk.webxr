@@ -18,5 +18,5 @@ MonoBehaviour:
   visualizationProfile: {fileID: 0}
   useCustomInteractions: 0
   interactionMappingProfiles:
-  - {fileID: 11400000, guid: 07d6df4c55c803449bf306d6ec3d797f, type: 2}
+  - {fileID: 11400000, guid: 6d2b2ed5b19c2c54ea634665a6528cc8, type: 2}
   - {fileID: 11400000, guid: 4aeafc70defce7f4a8f3eb88eefe4fcc, type: 2}

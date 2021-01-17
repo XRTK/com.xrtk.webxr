@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Rufus31415.WebXR;
-using System;
 using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
@@ -32,7 +31,8 @@ namespace XRTK.WebXR.Providers.Controllers
         public override MixedRealityInteractionMapping[] DefaultInteractions => new[]
         {
                                new MixedRealityInteractionMapping("Spatial Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
- new MixedRealityInteractionMapping("Trigger", AxisType.Digital, "Trigger", DeviceInputType.Select),
+                               new MixedRealityInteractionMapping("Spatial Grip", AxisType.SixDof, DeviceInputType.SpatialGrip),
+                                new MixedRealityInteractionMapping("Trigger", AxisType.Digital, "Trigger", DeviceInputType.Select),
         };
 
         /// <inheritdoc />
@@ -45,7 +45,7 @@ namespace XRTK.WebXR.Providers.Controllers
         /// <inheritdoc />
         public override void UpdateController()
         {
-                if (!Enabled) return;        
+            if (!Enabled) return;
 
             base.UpdateController();
 
@@ -55,7 +55,7 @@ namespace XRTK.WebXR.Providers.Controllers
 
             if (Interactions == null)
             {
-               Enabled = false;
+                Enabled = false;
             }
 
             var lastState = TrackingState;

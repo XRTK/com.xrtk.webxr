@@ -77,7 +77,7 @@ namespace XRTK.WebXR.Providers.Controllers
                 return trackedControllers[handedness];
             }
 
-            var controller = new WebXRController(this, TrackingState.NotTracked, handedness, GetControllerMappingProfile(typeof(WebXRController), handedness));
+            var controller = new WebXRController(this, TrackingState.Tracked, handedness, GetControllerMappingProfile(typeof(WebXRController), handedness));
 
             for (int i = 0; i < controller.InputSource?.Pointers?.Length; i++)
             {
