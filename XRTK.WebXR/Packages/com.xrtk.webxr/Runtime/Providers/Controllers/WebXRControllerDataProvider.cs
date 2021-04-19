@@ -2,10 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Rufus31415.WebXR;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using XRTK.Attributes;
 using XRTK.Definitions.Devices;
+using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Platforms;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem;
@@ -30,7 +32,16 @@ namespace XRTK.WebXR.Providers.Controllers
         public WebXRControllerDataProvider(string name, uint priority, WebXRControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService)
         {
-            postProcessor = new HandDataPostProcessor(TrackedPoses)
+            if (!MixedRealityToolkit.TryGetSystemProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            {
+                throw new ArgumentException($"Unable to get a valid {nameof(MixedRealityInputSystemProfile)}!");
+            }
+
+            var isGrippingThreshold = profile.GripThreshold != inputSystemProfile.GripThreshold
+                ? profile.GripThreshold
+                : inputSystemProfile.GripThreshold;
+
+            postProcessor = new HandDataPostProcessor(TrackedPoses, isGrippingThreshold)
             {
                 PlatformProvidesPointerPose = true
             };
@@ -93,7 +104,7 @@ namespace XRTK.WebXR.Providers.Controllers
 
             controller.TryRenderControllerModel();
 
-            MixedRealityToolkit.InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
+            InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
 
             trackedControllers.Add(handedness, controller);
 
@@ -116,7 +127,7 @@ namespace XRTK.WebXR.Providers.Controllers
 
             controller.TryRenderControllerModel();
 
-            MixedRealityToolkit.InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
+            InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
 
             trackedHands.Add(handedness, controller);
 
@@ -153,14 +164,14 @@ namespace XRTK.WebXR.Providers.Controllers
         private void RemoveControllerDevice(WebXRController controller)
         {
             if (controller == null) return;
-            MixedRealityToolkit.InputSystem?.RaiseSourceLost(controller.InputSource, controller);
+            InputSystem?.RaiseSourceLost(controller.InputSource, controller);
             trackedControllers.Remove(controller.ControllerHandedness);
         }
 
         private void RemoveHandDevice(WebXRHandController controller)
         {
             if (controller == null) return;
-            MixedRealityToolkit.InputSystem?.RaiseSourceLost(controller.InputSource, controller);
+            InputSystem?.RaiseSourceLost(controller.InputSource, controller);
             trackedHands.Remove(controller.ControllerHandedness);
         }
         #endregion
