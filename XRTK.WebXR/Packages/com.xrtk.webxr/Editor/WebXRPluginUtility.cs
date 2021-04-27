@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using XRTK.Editor.Utilities;
 using XRTK.Extensions;
-using XRTK.Utilities.Editor;
 
 namespace XRTK.WebXR.Editor
 {

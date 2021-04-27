@@ -63,7 +63,7 @@ namespace XRTK.WebXR.Providers.Controllers
             // Raise input system events if it is enabled.
             if (lastState != TrackingState)
             {
-                MixedRealityToolkit.InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
+                InputSystem?.RaiseSourceTrackingStateChanged(InputSource, this, TrackingState);
             }
 
             // Raise pose changed
@@ -73,7 +73,7 @@ namespace XRTK.WebXR.Providers.Controllers
 
                 if (currentControllerPose != lastControllerPose)
                 {
-                    MixedRealityToolkit.InputSystem?.RaiseSourcePoseChanged(InputSource, this, currentControllerPose);
+                    InputSystem?.RaiseSourcePoseChanged(InputSource, this, currentControllerPose);
                     lastControllerPose = currentControllerPose;
                 }
             }
