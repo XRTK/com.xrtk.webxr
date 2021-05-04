@@ -15,7 +15,7 @@ namespace XRTK.WebXR.Editor
     public static class WebXRPluginUtility
     {
         private const string GIT_ROOT = "../../../../";
-        private const string NATIVE_ROOT_PATH = "/Submodules/Simple-WebXR-Unity/Assets/SimpleWebXR";
+        private const string NATIVE_ROOT_PATH = "/Submodules/Simple-WebXR-Unity/com.rufus31415.simplewebxr";
         private static readonly string RootPath = PathFinderUtility.ResolvePath<IPathFinder>(typeof(WebXRPathFinder));
         private static readonly string PluginPath = Path.GetFullPath($"{RootPath}/Runtime/Plugins");
 
@@ -34,7 +34,7 @@ namespace XRTK.WebXR.Editor
             }
         }
 
-        private static string NativePluginPath => Path.GetFullPath($"{NativeRootPath}/Plugins");
+        private static string NativePluginPath => Path.GetFullPath($"{NativeRootPath}/");
 
         static WebXRPluginUtility()
         {
@@ -64,12 +64,15 @@ namespace XRTK.WebXR.Editor
                 }
 
                 Directory.CreateDirectory(PluginPath);
+                Directory.CreateDirectory($"{PluginPath}/Runtime/Scripts");
+                Directory.CreateDirectory($"{PluginPath}/Runtime/Plugins");
+                Directory.CreateDirectory($"{PluginPath}/Runtime/Plugins/WebGL");
 
                 var files = new List<string>
                 {
-                    $"{NativePluginPath}/SimpleWebXR.cs",
-                    $"{NativePluginPath}/SimpleWebXR.jslib",
-                    $"{NativePluginPath}/SimpleWebXR.jspre"
+                    $"{NativePluginPath}/Runtime/Scripts/SimpleWebXR.cs",
+                    $"{NativePluginPath}/Runtime/Plugins/WebGL/SimpleWebXR.jslib",
+                    $"{NativePluginPath}/Runtime/Plugins/WebGL/SimpleWebXR.jspre"
                 };
 
                 foreach (var file in files)
