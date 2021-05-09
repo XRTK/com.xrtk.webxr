@@ -21,6 +21,7 @@ namespace XRTK.WebXR.Providers.CameraSystem
         {
             hideStartButton = profile.HideStartButton;
             startButtonPrefab = profile.StartButtonPrefab;
+            WebXRNativeBindings.FallbackUserHeight = profile.DefaultHeadHeight;
         }
 
         private bool hideStartButton;

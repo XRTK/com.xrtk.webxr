@@ -53,13 +53,16 @@ namespace XRTK.WebXR.Native
 
         public WebXRHand()
         {
-            for (int i = 0; i < JOINT_COUNT; i++) Joints[i] = new WebXRJoint();
+            for (int i = 0; i < JOINT_COUNT; i++)
+            {
+                Joints[i] = new WebXRJoint();
+            }
         }
 
         /// <summary>
         /// Indicates if hand tracking is available
         /// </summary>
-        public bool Available;
+        public bool Available { get; internal set; }
 
         /// <summary>
         /// Poses of hand skeleton joints
