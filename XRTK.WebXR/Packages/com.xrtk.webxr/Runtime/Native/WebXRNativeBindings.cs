@@ -386,6 +386,8 @@ namespace XRTK.WebXR.Native
         // Create and update camera pose
         private static void UpdateCamera(WebXRViewEyes eye)
         {
+            // TODO Figure out how we wanna handle the camera rig setup in the scene.
+            // IF we could use a single camera with stereoscopic settings this would be ideal.
             var id = (eye == WebXRViewEyes.Left) ? 0 : 1;
 
             // If the camera for this id should not exist
