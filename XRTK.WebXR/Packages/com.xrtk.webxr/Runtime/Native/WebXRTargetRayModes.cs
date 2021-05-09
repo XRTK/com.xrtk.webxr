@@ -1,3 +1,7 @@
+// Copyright (c) XRTK. All rights reserved.
+// Copyright (c) 2020 Florent GIRAUD (Rufus31415)
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 namespace XRTK.WebXR.Native
 {
     /// <summary>

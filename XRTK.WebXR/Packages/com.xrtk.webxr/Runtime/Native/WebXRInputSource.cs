@@ -1,3 +1,7 @@
+// Copyright (c) XRTK. All rights reserved.
+// Copyright (c) 2020 Florent GIRAUD (Rufus31415) https://github.com/Rufus31415/Simple-WebXR-Unity
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Text;
 using UnityEngine;
@@ -16,7 +20,7 @@ namespace XRTK.WebXR.Native
         /// </summary>
         /// <remarks>
         /// On Oculus Quest : Back trigger button was pressed
-        /// On Hololens 2 : A air tap has been was performed
+        /// On HoloLens 2 : A air tap has been was performed
         /// On smartphones : The screen was touched
         /// </remarks>
         public event Action Select;
@@ -110,7 +114,7 @@ namespace XRTK.WebXR.Native
         /// </summary>
         /// <remarks>
         /// On Oculus Quest : Back trigger button is pressed
-        /// On Hololens 2 : A air tap is performed
+        /// On HoloLens 2 : A air tap is performed
         /// On smartphones : The screen is touched
         /// </remarks>
         public bool Selected { get; private set; }
