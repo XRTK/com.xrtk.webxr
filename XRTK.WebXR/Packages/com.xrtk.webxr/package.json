@@ -10,7 +10,7 @@
     "mixed",
     "reality"
   ],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "unity": "2019.4",
   "license": "MIT",
   "repository": {
@@ -20,7 +20,7 @@
   "src": "Assets/XRTK.WebXR",
   "author": "XRTK Team (https://github.com/XRTK)",
   "dependencies": {
-    "com.xrtk.core": "0.2.11"
+    "com.xrtk.core": "0.2.13"
   },
   "profiles": [
     {
