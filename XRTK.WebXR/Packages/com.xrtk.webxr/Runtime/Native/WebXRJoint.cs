@@ -9,7 +9,7 @@ namespace XRTK.WebXR.Native
     /// <summary>
     /// Joint of a hand. Each hand is made up many bones, connected by joints.
     /// </summary>
-    internal struct WebXRJoint
+    public struct WebXRJoint
     {
         public WebXRJoint(Vector3 position, Quaternion quaternion, float radius = float.NaN)
         {

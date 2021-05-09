@@ -7,7 +7,7 @@ namespace XRTK.WebXR.Native
     /// <summary>
     /// Describes the poses of hand skeleton joints
     /// </summary>
-    internal class WebXRHand
+    public class WebXRHand
     {
         #region Constants
 

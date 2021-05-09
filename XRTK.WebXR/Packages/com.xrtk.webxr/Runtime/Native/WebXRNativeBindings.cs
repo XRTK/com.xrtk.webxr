@@ -12,7 +12,11 @@ namespace XRTK.WebXR.Native
     /// <summary>
     /// Based on https://github.com/Rufus31415/Simple-WebXR-Unity
     /// </summary>
-    internal static class WebXRNativeBindings
+    /// <remarks>
+    /// The data (projection matrix, position and rotation) are shared with javascript via arrays.
+    /// See also files SimpleWebXR.jslib and SimpleWebXR.jspre
+    /// </remarks>
+    public static class WebXRNativeBindings
     {
         #region Dll Calls
 
@@ -248,7 +252,7 @@ namespace XRTK.WebXR.Native
         /// <param name="hand">Controller to apply feedback</param>
         /// <param name="intensity">Feedback strength between 0 and 1</param>
         /// <param name="duration">Feedback duration in milliseconds</param>
-        public static void HapticPulse(WebXRHandedness hand, float intensity, float duration)
+        internal static void HapticPulse(WebXRHandedness hand, float intensity, float duration)
         {
             if (isInitialized)
             {
@@ -260,19 +264,20 @@ namespace XRTK.WebXR.Native
         /// <summary>
         /// A human-readable presentation of the WebXR session and capabilities
         /// </summary>
-        public static string Stringify()
+        public new static string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("In session : ");
+            sb.AppendLine(nameof(WebXRNativeBindings));
+            sb.Append("  In session : ");
             sb.AppendLine(InSession ? "Yes" : "No");
 
-            sb.Append("AR supported : ");
+            sb.Append("  AR supported : ");
             sb.AppendLine(IsArSupported ? "Yes" : "No");
 
-            sb.Append("VR supported : ");
+            sb.Append("  VR supported : ");
             sb.AppendLine(IsVrSupported ? "Yes" : "No");
 
-            sb.Append("User height : ");
+            sb.Append("  User height : ");
             sb.AppendLine(UserHeight.ToString("0.0"));
 
             sb.AppendLine(Stringify(cameras[0], "left"));

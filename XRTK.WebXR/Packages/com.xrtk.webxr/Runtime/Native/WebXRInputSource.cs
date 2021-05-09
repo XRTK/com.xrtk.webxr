@@ -11,7 +11,7 @@ namespace XRTK.WebXR.Native
     /// <summary>
     /// Contains WebXR input source controller state and events
     /// </summary>
-    internal class WebXRInputSource
+    public class WebXRInputSource
     {
         #region Events
 
@@ -107,7 +107,7 @@ namespace XRTK.WebXR.Native
         /// <summary>
         /// Describes the method used to produce the target ray, and indicates how the application should present the target ray to the user if desired.
         /// </summary>
-        public WebXRTargetRayModes TargetRayMode = WebXRTargetRayModes.None;
+        internal WebXRTargetRayModes TargetRayMode = WebXRTargetRayModes.None;
 
         /// <summary>
         /// The input source primary action is active

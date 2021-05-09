@@ -7,7 +7,7 @@ namespace XRTK.WebXR.Native
     /// <summary>
     /// Describes a button, trigger, thumbstick, or touchpad data
     /// </summary>
-    internal class WebXRGamepadButton
+    public class WebXRGamepadButton
     {
         /// <summary>
         /// The amount which the button has been pressed, between 0.0 and 1.0, for buttons that have an analog sensor
