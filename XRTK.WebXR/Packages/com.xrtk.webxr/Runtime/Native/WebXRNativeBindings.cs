@@ -38,6 +38,12 @@ namespace XRTK.WebXR.Native
         private static extern bool InternalIsVrSupported();
 
         [System.Runtime.InteropServices.DllImport("__Internal")]
+        private static extern bool InternalIsOVRMultiview2Supported();
+
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        private static extern bool InternalIsOculusMultiviewSupported();
+
+        [System.Runtime.InteropServices.DllImport("__Internal")]
         private static extern void InternalHitTestStart();
 
         [System.Runtime.InteropServices.DllImport("__Internal")]
@@ -57,6 +63,10 @@ namespace XRTK.WebXR.Native
         private static bool InternalIsArSupported() => false;
 
         private static bool InternalIsVrSupported() => false;
+
+        private static bool InternalIsOVRMultiview2Supported() => false;
+
+        private static bool InternalIsOculusMultiviewSupported() => false;
 
         private static void InternalGetDeviceOrientation(float[] orientationArray, byte[] orientationInfo) { }
 
@@ -142,6 +152,32 @@ namespace XRTK.WebXR.Native
             {
                 Initialize();
                 return InternalIsVrSupported();
+            }
+        }
+
+        /// <summary>
+        /// Check if OVR Multiview2 extension is supported.
+        /// </summary>
+        /// <returns>True, if multiview2 is supported.</returns>
+        public static bool IsMultiview2Supported
+        {
+            get
+            {
+                Initialize();
+                return InternalIsOVRMultiview2Supported();
+            }
+        }
+
+        /// <summary>
+        /// Check if Oculus Multiview with sampling is supported.
+        /// </summary>
+        /// <returns>True, if Oculus multiview with sampling is supported.</returns>
+        public static bool IsOculusMultiviewSampledSupported
+        {
+            get
+            {
+                Initialize();
+                return InternalIsOculusMultiviewSupported();
             }
         }
 
