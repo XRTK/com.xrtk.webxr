@@ -32,7 +32,7 @@ namespace XRTK.WebXR.Providers.CameraSystem
         #region IMixedRealityService
 
         /// <inheritdoc />
-        public override void Enable()
+        public override async void Enable()
         {
             base.Enable();
 
@@ -44,7 +44,7 @@ namespace XRTK.WebXR.Providers.CameraSystem
                 }
                 else
                 {
-                    WebXRNativeBindings.StartSession();
+                    await WebXRNativeBindings.StartSession();
                 }
             }
         }

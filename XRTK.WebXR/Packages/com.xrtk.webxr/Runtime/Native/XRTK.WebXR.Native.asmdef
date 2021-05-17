@@ -1,6 +1,8 @@
 {
     "name": "XRTK.WebXR.Native",
-    "references": [],
+    "references": [
+        "GUID:f3241d040533491e8a1e2714b27c3111"
+    ],
     "includePlatforms": [
         "Editor",
         "WebGL"

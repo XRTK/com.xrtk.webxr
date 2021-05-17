@@ -3,8 +3,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
+using System.Collections;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.XR;
+using XRTK.Utilities.Async;
 using Object = UnityEngine.Object;
 
 namespace XRTK.WebXR.Native
@@ -195,13 +199,15 @@ namespace XRTK.WebXR.Native
         /// <summary>
         /// Triggers the start of a WebXR immersive session
         /// </summary>
-        public static bool StartSession()
+        public static async Task<bool> StartSession()
         {
             if (!IsArSupported && !IsVrSupported)
             {
                 Debug.LogWarning("WebXR not supported for this device!");
                 return false;
             }
+
+            await EnableDisableVRMode(true);
 
             Initialize();
             if (InternalInSession) { return true; }
@@ -212,11 +218,39 @@ namespace XRTK.WebXR.Native
         /// <summary>
         /// Ends the current WebXR immersive session
         /// </summary>
-        public static void EndSession()
+        public static async void EndSession()
         {
             if (!InternalInSession) { return; }
+
+            await EnableDisableVRMode(false);
+
             InternalHitTestCancel();
             InternalEndSession();
+        }
+
+        private static IEnumerator EnableDisableVRMode(bool bEnable)
+        {
+            XRSettings.enabled = bEnable;
+
+            if (bEnable)
+            {
+                yield return new WaitForEndOfFrame();
+                XRSettings.LoadDeviceByName("MockHMD");
+                yield return new WaitForEndOfFrame();
+                XRSettings.enabled = true;
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+                XRSettings.LoadDeviceByName("None");
+                yield return new WaitForEndOfFrame();
+                XRSettings.enabled = false;
+            }
+
+            yield return new WaitForEndOfFrame();
+
+            Debug.Log($"UnityEngine.XR.XRSettings.enabled = {XRSettings.enabled}");
+            Debug.Log($"UnityEngine.XR.XRSettings.loadedDeviceName = {XRSettings.loadedDeviceName}");
         }
 
         /// <summary>

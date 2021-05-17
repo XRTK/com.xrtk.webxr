@@ -215,7 +215,10 @@ namespace XRTK.WebXR.Native
                 sb.Append("  Rotation : ");
                 sb.AppendLine(Rotation.eulerAngles.ToString());
             }
-            else sb.AppendLine("  No position info");
+            else
+            {
+                sb.AppendLine("  No position info");
+            }
 
             sb.Append("  Hand : ");
             sb.AppendLine(Hand.Available ? "Yes" : "No");
@@ -232,7 +235,10 @@ namespace XRTK.WebXR.Native
                     sb.AppendLine("%");
                 }
             }
-            else sb.AppendLine("    None");
+            else
+            {
+                sb.AppendLine("    None");
+            }
 
             sb.AppendLine("  Buttons :");
             if (ButtonsCount > 0)
@@ -245,7 +251,10 @@ namespace XRTK.WebXR.Native
                     sb.AppendLine(Buttons[i].ToString());
                 }
             }
-            else sb.AppendLine("    None");
+            else
+            {
+                sb.AppendLine("    None");
+            }
 
             return sb.ToString();
         }
