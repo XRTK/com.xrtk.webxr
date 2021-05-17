@@ -5,10 +5,9 @@
 using System;
 using System.Collections;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR;
-using XRTK.Utilities.Async;
+using XRTK.Services;
 using Object = UnityEngine.Object;
 
 namespace XRTK.WebXR.Native
@@ -95,6 +94,11 @@ namespace XRTK.WebXR.Native
         /// Indicates if a WebXR session is running
         /// </summary>
         public static bool InSession { get; private set; }
+
+        /// <summary>
+        /// Indicates if XR is supported on this device.
+        /// </summary>
+        public static bool IsXrSupported => IsArSupported || IsVrSupported;
 
         /// <summary>
         /// Event triggered when the browser triggers a XRSession.inputsourceschange event, which means a input sources has been added or removed.
@@ -195,22 +199,21 @@ namespace XRTK.WebXR.Native
             isInitialized = true;
         }
 
-
         /// <summary>
         /// Triggers the start of a WebXR immersive session
         /// </summary>
-        public static async Task<bool> StartSession()
+        public static bool StartSession()
         {
-            if (!IsArSupported && !IsVrSupported)
+            if (InternalInSession) { return true; }
+
+            if (!IsXrSupported)
             {
                 Debug.LogWarning("WebXR not supported for this device!");
                 return false;
             }
 
-            await EnableDisableVRMode(true);
+            MixedRealityToolkit.Instance.StartCoroutine(EnableUnityXr(true));
 
-            Initialize();
-            if (InternalInSession) { return true; }
             InternalStartSession();
             return true;
         }
@@ -218,21 +221,19 @@ namespace XRTK.WebXR.Native
         /// <summary>
         /// Ends the current WebXR immersive session
         /// </summary>
-        public static async void EndSession()
+        public static void EndSession()
         {
             if (!InternalInSession) { return; }
 
-            await EnableDisableVRMode(false);
+            MixedRealityToolkit.Instance.StartCoroutine(EnableUnityXr(false));
 
             InternalHitTestCancel();
             InternalEndSession();
         }
 
-        private static IEnumerator EnableDisableVRMode(bool bEnable)
+        private static IEnumerator EnableUnityXr(bool enable)
         {
-            XRSettings.enabled = bEnable;
-
-            if (bEnable)
+            if (enable)
             {
                 yield return new WaitForEndOfFrame();
                 XRSettings.LoadDeviceByName("MockHMD");
@@ -246,11 +247,6 @@ namespace XRTK.WebXR.Native
                 yield return new WaitForEndOfFrame();
                 XRSettings.enabled = false;
             }
-
-            yield return new WaitForEndOfFrame();
-
-            Debug.Log($"UnityEngine.XR.XRSettings.enabled = {XRSettings.enabled}");
-            Debug.Log($"UnityEngine.XR.XRSettings.loadedDeviceName = {XRSettings.loadedDeviceName}");
         }
 
         /// <summary>

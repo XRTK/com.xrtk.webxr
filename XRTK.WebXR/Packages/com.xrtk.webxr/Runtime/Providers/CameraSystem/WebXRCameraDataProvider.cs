@@ -1,7 +1,9 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Collections;
 using UnityEngine;
+using UnityEngine.XR;
 using XRTK.Attributes;
 using XRTK.Definitions.Platforms;
 using XRTK.Extensions;
@@ -32,7 +34,7 @@ namespace XRTK.WebXR.Providers.CameraSystem
         #region IMixedRealityService
 
         /// <inheritdoc />
-        public override async void Enable()
+        public override void Enable()
         {
             base.Enable();
 
@@ -44,7 +46,7 @@ namespace XRTK.WebXR.Providers.CameraSystem
                 }
                 else
                 {
-                    await WebXRNativeBindings.StartSession();
+                    //WebXRNativeBindings.StartSession();
                 }
             }
         }
@@ -53,6 +55,23 @@ namespace XRTK.WebXR.Providers.CameraSystem
         public override void LateUpdate()
         {
             base.LateUpdate();
+
+            if (WebXRNativeBindings.IsXrSupported &&
+                Input.GetKeyUp(KeyCode.Space))
+            {
+                if (!XRSettings.enabled)
+                {
+                    WebXRNativeBindings.StartSession();
+                }
+                else
+                {
+                    WebXRNativeBindings.EndSession();
+                }
+
+                Debug.Log($"XRSettings.enabled = {XRSettings.enabled}");
+                Debug.Log($"XRSettings.loadedDeviceName = {XRSettings.loadedDeviceName}");
+                Debug.Log($"XRSettings.stereoRenderingMode = {XRSettings.stereoRenderingMode}");
+            }
 
             WebXRNativeBindings.UpdateWebXR();
         }
