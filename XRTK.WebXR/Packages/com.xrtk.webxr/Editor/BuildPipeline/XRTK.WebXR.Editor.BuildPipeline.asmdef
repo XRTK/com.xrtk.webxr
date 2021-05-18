@@ -1,12 +1,12 @@
 {
-    "name": "XRTK.WebXR",
+    "name": "XRTK.WebXR.Editor.BuildPipeline",
     "references": [
         "GUID:f3241d040533491e8a1e2714b27c3111",
-        "GUID:68d587f0a643f6a4f9684f2f497d4475"
+        "GUID:eda4b1f0c60d2cc40bb62be4e39a2c5a",
+        "GUID:258402e6b12e10c43925784eabc239e5"
     ],
     "includePlatforms": [
-        "Editor",
-        "WebGL"
+        "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

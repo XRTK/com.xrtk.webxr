@@ -9,22 +9,9 @@ namespace XRTK.Definitions.Platforms
     /// Used by the XRTK to signal that the feature is available on the WebXR platform.
     /// </summary>
     [System.Runtime.InteropServices.Guid("014aed5a-a0d8-4db3-a3c0-0b33ff7c065b")]
-    public class WebXRPlatform : BasePlatform
+    public class WebXRPlatform : WebGlPlatform
     {
         /// <inheritdoc />
-        public override bool IsAvailable => !UnityEngine.Application.isEditor;
-
-        /// <inheritdoc />
-        public override bool IsBuildTargetAvailable
-        {
-            get
-            {
-#if UNITY_EDITOR
-                return (UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.WebGL);
-#else
-                return false;
-#endif
-            }
-        }
+        public override IMixedRealityPlatform[] PlatformOverrides => new IMixedRealityPlatform[] { new WebGlPlatform() };
     }
 }

@@ -1,7 +1,6 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Rufus31415.WebXR;
 using UnityEngine;
 using XRTK.Definitions.Controllers;
 using XRTK.Definitions.Devices;
@@ -9,30 +8,27 @@ using XRTK.Definitions.Utilities;
 using XRTK.Extensions;
 using XRTK.Interfaces.Providers.Controllers;
 using XRTK.Providers.Controllers;
-using XRTK.Services;
+using XRTK.WebXR.Native;
 
 namespace XRTK.WebXR.Providers.Controllers
 {
     [System.Runtime.InteropServices.Guid("6e771251-8fb3-4742-a279-eebf7a25f6dd")]
     public class WebXRController : BaseController
     {
-
         public WebXRController() { }
 
         public WebXRController(IMixedRealityControllerDataProvider controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
-    : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
+            : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         {
         }
-
-
 
         private MixedRealityPose lastControllerPose = MixedRealityPose.ZeroIdentity;
 
         public override MixedRealityInteractionMapping[] DefaultInteractions => new[]
         {
-                               new MixedRealityInteractionMapping("Spatial Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
-                               new MixedRealityInteractionMapping("Spatial Grip", AxisType.SixDof, DeviceInputType.SpatialGrip),
-                                new MixedRealityInteractionMapping("Trigger", AxisType.Digital, "Trigger", DeviceInputType.Select),
+            new MixedRealityInteractionMapping("Spatial Position", AxisType.SixDof, DeviceInputType.SpatialPointer),
+            new MixedRealityInteractionMapping("Spatial Grip", AxisType.SixDof, DeviceInputType.SpatialGrip),
+            new MixedRealityInteractionMapping("Trigger", AxisType.Digital, "Trigger", DeviceInputType.Select),
         };
 
         /// <inheritdoc />
@@ -41,11 +37,12 @@ namespace XRTK.WebXR.Providers.Controllers
         /// <inheritdoc />
         public override MixedRealityInteractionMapping[] DefaultRightHandedInteractions => DefaultInteractions;
 
-
-        /// <inheritdoc />
-        public void UpdateController(WebXRInputSource controller)
+        internal void UpdateController(WebXRInputSource controller)
         {
-            if (!Enabled) return;
+            if (!Enabled)
+            {
+                return;
+            }
 
             base.UpdateController();
 
@@ -56,7 +53,7 @@ namespace XRTK.WebXR.Providers.Controllers
 
             var lastState = TrackingState;
 
-            IsPositionAvailable = IsRotationAvailable = SimpleWebXR.InSession && controller.Available && controller.IsPositionTracked;
+            IsPositionAvailable = IsRotationAvailable = WebXRNativeBindings.InSession && controller.Available && controller.IsPositionTracked;
 
             TrackingState = IsPositionAvailable ? TrackingState.Tracked : TrackingState.NotTracked;
 
@@ -99,6 +96,5 @@ namespace XRTK.WebXR.Providers.Controllers
                 interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
             }
         }
-
     }
 }

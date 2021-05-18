@@ -1,19 +1,18 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Rufus31415.WebXR;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using XRTK.Attributes;
 using XRTK.Definitions.Devices;
 using XRTK.Definitions.InputSystem;
 using XRTK.Definitions.Platforms;
 using XRTK.Definitions.Utilities;
 using XRTK.Interfaces.InputSystem;
-using XRTK.Providers.Controllers;
+using XRTK.Interfaces.Providers.Controllers;
 using XRTK.Providers.Controllers.Hands;
 using XRTK.Services;
+using XRTK.WebXR.Native;
 using XRTK.WebXR.Profiles;
 
 namespace XRTK.WebXR.Providers.Controllers
@@ -26,7 +25,6 @@ namespace XRTK.WebXR.Providers.Controllers
         private readonly Dictionary<Handedness, WebXRController> trackedControllers = new Dictionary<Handedness, WebXRController>();
 
         private readonly HandDataPostProcessor postProcessor;
-
 
         /// <inheritdoc />
         public WebXRControllerDataProvider(string name, uint priority, WebXRControllerDataProviderProfile profile, IMixedRealityInputSystem parentService)
@@ -58,20 +56,16 @@ namespace XRTK.WebXR.Providers.Controllers
         {
             base.Update();
 
-            UpdateController(SimpleWebXR.LeftInput, Handedness.Left);
-            UpdateController(SimpleWebXR.RightInput, Handedness.Right);
+            UpdateController(WebXRNativeBindings.LeftInput, Handedness.Left);
+            UpdateController(WebXRNativeBindings.RightInput, Handedness.Right);
         }
 
-        #region Controller Management
-
-        protected void UpdateController(WebXRInputSource controller, Handedness handedness)
+        private void UpdateController(WebXRInputSource controller, Handedness handedness)
         {
             if (controller.Available && (controller.IsPositionTracked || controller.Hand.Available))
             {
-
                 if (controller.Hand.Available)
                 {
-
                     RemoveControllerDevice(handedness);
                     GetOrAddHand(handedness)?.UpdateController(postProcessor, controller);
                 }
@@ -136,14 +130,14 @@ namespace XRTK.WebXR.Providers.Controllers
 
         private void RemoveControllerDevice(Handedness handedness)
         {
-            if (trackedControllers.TryGetValue(handedness, out WebXRController controller))
+            if (trackedControllers.TryGetValue(handedness, out var controller))
             {
                 RemoveControllerDevice(controller);
             }
         }
         private void RemoveHandDevice(Handedness handedness)
         {
-            if (trackedHands.TryGetValue(handedness, out WebXRHandController controller))
+            if (trackedHands.TryGetValue(handedness, out var controller))
             {
                 RemoveHandDevice(controller);
             }
@@ -151,30 +145,29 @@ namespace XRTK.WebXR.Providers.Controllers
 
         private void RemoveAllControllerDevices()
         {
-            if (trackedControllers.Count == 0) return;
+            if (trackedControllers.Count == 0) { return; }
 
             // Create a new list to avoid causing an error removing items from a list currently being iterated on.
             foreach (var controller in new List<WebXRController>(trackedControllers.Values))
             {
                 RemoveControllerDevice(controller);
             }
+
             trackedControllers.Clear();
         }
 
-        private void RemoveControllerDevice(WebXRController controller)
+        private void RemoveControllerDevice(IMixedRealityController controller)
         {
-            if (controller == null) return;
+            if (controller == null) { return; }
             InputSystem?.RaiseSourceLost(controller.InputSource, controller);
             trackedControllers.Remove(controller.ControllerHandedness);
         }
 
-        private void RemoveHandDevice(WebXRHandController controller)
+        private void RemoveHandDevice(IMixedRealityController controller)
         {
-            if (controller == null) return;
+            if (controller == null) { return; }
             InputSystem?.RaiseSourceLost(controller.InputSource, controller);
             trackedHands.Remove(controller.ControllerHandedness);
         }
-        #endregion
-
     }
 }
