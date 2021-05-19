@@ -20,7 +20,7 @@
   "src": "Assets/XRTK.WebXR",
   "author": "XRTK Team (https://github.com/XRTK)",
   "dependencies": {
-    "com.xrtk.core": "0.2.15"
+    "com.xrtk.core": "0.2.16"
   },
   "profiles": [
     {
