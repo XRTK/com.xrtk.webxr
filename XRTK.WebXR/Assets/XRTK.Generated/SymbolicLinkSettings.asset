@@ -16,3 +16,6 @@ MonoBehaviour:
   - sourceRelativePath: /XRTK.WebXR/Packages/com.xrtk.webxr/Profiles~
     targetRelativePath: /XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles
     isActive: 1
+  - sourceRelativePath: /Submodules/Simple-WebXR-Unity/com.rufus31415.simplewebxr/Runtime/Plugins
+    targetRelativePath: /XRTK.WebXR/Packages/com.xrtk.webxr/Runtime/Plugins
+    isActive: 1

@@ -1,11 +1,15 @@
 // Copyright (c) XRTK. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Collections;
+using UnityEngine;
+using UnityEngine.XR;
 using XRTK.Attributes;
-using XRTK.Definitions.CameraSystem;
 using XRTK.Definitions.Platforms;
+using XRTK.Extensions;
 using XRTK.Interfaces.CameraSystem;
 using XRTK.Providers.CameraSystem;
+using XRTK.WebXR.Native;
 
 namespace XRTK.WebXR.Providers.CameraSystem
 {
@@ -14,9 +18,75 @@ namespace XRTK.WebXR.Providers.CameraSystem
     public class WebXRCameraDataProvider : BaseCameraDataProvider
     {
         /// <inheritdoc />
-        public WebXRCameraDataProvider(string name, uint priority, BaseMixedRealityCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)
+        public WebXRCameraDataProvider(string name, uint priority, WebXRCameraDataProviderProfile profile, IMixedRealityCameraSystem parentService)
             : base(name, priority, profile, parentService)
         {
+            hideStartButton = profile.HideStartButton;
+            startButtonPrefab = profile.StartButtonPrefab;
+            WebXRNativeBindings.FallbackUserHeight = profile.DefaultHeadHeight;
         }
+
+        private bool hideStartButton;
+
+        private GameObject startButtonObject;
+        private GameObject startButtonPrefab;
+
+        #region IMixedRealityService
+
+        /// <inheritdoc />
+        public override void Enable()
+        {
+            base.Enable();
+
+            if (Application.isPlaying)
+            {
+                if (!hideStartButton && startButtonPrefab != null)
+                {
+                    startButtonObject = Object.Instantiate(startButtonPrefab);
+                }
+                else
+                {
+                    //WebXRNativeBindings.StartSession();
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public override void LateUpdate()
+        {
+            base.LateUpdate();
+
+            if (WebXRNativeBindings.IsXrSupported &&
+                Input.GetKeyUp(KeyCode.Space))
+            {
+                if (!XRSettings.enabled)
+                {
+                    WebXRNativeBindings.StartSession();
+                }
+                else
+                {
+                    WebXRNativeBindings.EndSession();
+                }
+
+                Debug.Log($"XRSettings.enabled = {XRSettings.enabled}");
+                Debug.Log($"XRSettings.loadedDeviceName = {XRSettings.loadedDeviceName}");
+                Debug.Log($"XRSettings.stereoRenderingMode = {XRSettings.stereoRenderingMode}");
+            }
+
+            WebXRNativeBindings.UpdateWebXR();
+        }
+
+        public override void Disable()
+        {
+            base.Disable();
+
+            if (Application.isPlaying)
+            {
+                startButtonObject.Destroy();
+                WebXRNativeBindings.EndSession();
+            }
+        }
+
+        #endregion IMixedRealityService
     }
 }
