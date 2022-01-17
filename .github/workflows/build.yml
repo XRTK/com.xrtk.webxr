@@ -22,9 +22,9 @@ jobs:
       matrix:
         include:
           - os: windows
-            build-target: WebXR
+            build-target: WebGL
           - os: macos
-            build-target: WebXR
+            build-target: WebGL
 
     steps:
       - uses: actions/checkout@v2
