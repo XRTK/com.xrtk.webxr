@@ -1,17 +1,26 @@
+# ============ #
+# System Files #
+# ============ #
+.DS_Store
+._*
+
 # =============== #
 # Unity generated #
 # =============== #
-[Tt]emp/
-[Oo]bj/
+[Aa]pp/
+[Aa]pp.meta
 [Bb]in/
 [Bb]uilds/
 [Bb]uild/
 [Ll]ibrary/
-[Aa]pp/
+[Ll]ogs/
+[Oo]bj/
+[Tt]emp/
 UWP/
 WindowsStoreApp/
 UnityGenerated/
 UnityPackageManager/
+UserSettings/
 .out/
 .gradle/
 project.json
@@ -19,6 +28,7 @@ project.lock.json
 *.package
 TextMesh Pro.meta
 TextMesh Pro/
+UIElementsSchema/
 *packages-lock.json
 
 # ============ #
@@ -59,6 +69,12 @@ obj/
 # ============================ #
 .vscode/
 
+# ========================= #
+# Jetbrains Rider Generated #
+# ========================= #
+.idea/
+_ReSharper.Caches
+
 # ===================== #
 # Project Specific List #
 # ===================== #
@@ -70,5 +86,3 @@ ThirdParty.meta
 XRTK.WebXR/Assets/XRTK.Generated/WebXR.meta
 XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles
 XRTK.WebXR/Assets/XRTK.Generated/WebXR/Profiles.meta
-XRTK.WebXR/Packages/com.xrtk.webxr/Runtime/Plugins
-XRTK.WebXR/Packages/com.xrtk.webxr/Runtime/Plugins.meta
