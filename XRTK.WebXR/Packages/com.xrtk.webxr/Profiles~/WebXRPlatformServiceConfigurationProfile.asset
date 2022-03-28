@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da64fb88269149f8a95f1fb969d6a0b4, type: 3}
+  m_Name: WebXRPlatformServiceConfigurationProfile
+  m_EditorClassIdentifier: 
+  platformEntries:
+    runtimePlatforms:
+    - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
+    - reference: 014aed5a-a0d8-4db3-a3c0-0b33ff7c065b
+  configurations:
+  - instancedType:
+      reference: ae391bc1-67b5-4074-9972-b401b0b9801c
+    name: WebXR Camera Data Provider
+    priority: 0
+    platformEntries:
+      runtimePlatforms:
+      - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
+      - reference: 014aed5a-a0d8-4db3-a3c0-0b33ff7c065b
+    profile: {fileID: 11400000, guid: c8839a54625ef094ba03a2d5d1db8043, type: 2}
+  - instancedType:
+      reference: 4fc04834-14f0-4dc6-b272-cbc0d1bc8964
+    name: WebXR Controller Data Provider
+    priority: 1
+    platformEntries:
+      runtimePlatforms:
+      - reference: c838c4f5-a87e-48c7-8742-09a4d85fc3bc
+      - reference: 014aed5a-a0d8-4db3-a3c0-0b33ff7c065b
+    profile: {fileID: 11400000, guid: 4bcbb0936187daf45a35c51ab9a36fc8, type: 2}
