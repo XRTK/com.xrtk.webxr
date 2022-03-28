@@ -10,18 +10,17 @@
     "mixed",
     "reality"
   ],
-  "version": "0.2.1",
+  "version": "0.3.0",
   "unity": "2019.4",
   "license": "MIT",
   "author": "XRTK Team (https://github.com/XRTK)",
   "dependencies": {
-    "com.xrtk.core": "0.2.1"
+    "com.xrtk.core": "0.3.0-preview.66"
   },
   "profiles": [
     {
       "displayName": "Default Profiles",
       "path": "Profiles~/"
     }
-  ],
-  "unityRelease": "17f1"
+  ]
 }
